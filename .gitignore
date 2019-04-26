@@ -1,0 +1,6 @@
+
+.stack-work/
+donor.cabal
+*~
+buildprogress.txt
+.DS_Store

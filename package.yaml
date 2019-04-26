@@ -1,0 +1,55 @@
+name:                donor
+version:             0.1.0.0
+github:              "goldenfoil/donor"
+license:             BSD3
+author:              "Golden Foil"
+maintainer:          "example@example.com"
+copyright:           "2019 Golden Foil"
+
+extra-source-files:
+- README.md
+
+description:         Donor codebase lists most common dependencies. This approach drastically reduces build time.
+
+dependencies:
+- base >= 4.7 && < 5
+- bytestring
+- text
+- servant-server # for serving http
+- aeson # for json
+- wai # for serving http
+- wai-extra # for HTTP request logger and other things
+- wai-cors # for dealing with CORS
+- servant-options # for dealing with CORS
+- warp # for serving http
+
+library:
+  source-dirs: src
+
+executables:
+  donor-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - donor
+
+tests:
+  donor-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - donor
+
+default-extensions:
+- DataKinds # Servant
+- DeriveGeneric # Aeson
+- OverloadedStrings # Wai and other places
+- TypeOperators # Servant
