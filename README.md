@@ -9,11 +9,16 @@ Docker build container
 1. Change dependencies
 
 2. Commit, push to GitHub
-3. Build, tag and push image to DockerHub
 
-```bash
-docker build -t donor .
-docker tag donor goldenfoil/haskell-stack-builder-no-postgres-lts-11-14:1
-docker push goldenfoil/haskell-stack-builder-no-postgres-lts-11-14:1
-# :1 is a version tag. it better be changed in the future
-```
+3. Publish. You have 2 options:
+
+    a. Wait for it to build automatically on dockerhub *(check if build is scheduled or trigger build manually)*. In this case tag will not include git commit hash - it will be just `latest`.
+
+    b. Build, tag and push manually:
+
+    ```bash
+    # compatibility: both for bash and fish
+    bash -c 'docker build -t goldenfoil/haskell-stack-builder-no-postgres-lts-11-14:latest goldenfoil/haskell-stack-builder-no-postgres-lts-11-14:$(git log -1 --pretty=%h) .'
+
+    docker push goldenfoil/haskell-stack-builder-no-postgres-lts-11-14
+    ```
